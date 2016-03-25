@@ -1,8 +1,12 @@
 <?php
 /*
 Plugin Name: RC Page Navigation Widget
-Description: Automatic Page Navigation Widget by RighteousCoder.
+Description: Site specific code changes for righteouswritings.com
+ * Author: Michael A. Walker
+ * Version: 0.5.0.0
 */
+/* Start Adding Functions Below this Line */
+
 
 // Creating the widget 
 class rcpn_page_nav_widget extends WP_Widget {
@@ -15,10 +19,10 @@ parent::__construct(
     //This address for this post is: <?php the_permalink(); 
     
     // Widget name will appear in UI
-    __('WPBeginner Widget', 'rcpn_page_nav_widget_domain'), 
+    __('RC Page-Navigation Widget', 'rcpn_page_nav_widget_domain'), 
 
     // Widget description
-    array( 'description' => __( 'Page Navigation Widget that provides automatic PREVIOUS, INDEX, and NEXT links in web-novel stories. Supports lineraly numbered stories. Volume/Chapter style stories to come in future revision.', 'rcpn_page_nav_widget_domain' ), ) 
+    array( 'description' => __( 'Sample widget based on WPBeginner Tutorial', 'rcpn_page_nav_widget_domain' ), ) 
     );
 }
 
@@ -70,23 +74,13 @@ function rcpn_get_index_word ( $args, $instance ){
 
 function rcpn_get_next_word ( $args, $instance ){
     // TODO make global settings impact title display
-    return ( isset($instance['next_word']) ) ? esc_attr( $instance['next_word'] ) : "NEXT";
+    return ( isset($instance['next_word']) ) ? esc_attr( $instance['next_word'] ) : "NEXT2";
 }
 
 
 function rcpn_get_text_style ( $args, $instance ){
     // TODO make global settings impact title display
     return ( isset($instance['text_style']) ) ? esc_attr( $instance['text_style'] ) : "";
-}
-
-function rcpn_get_chapter_prefix ( $args, $instance ){
-    // TODO make global settings impact title display
-    return ( isset($instance['chapter_prefix']) ) ? esc_attr( $instance['chapter_prefix'] ) : "";
-}
-
-function rcpn_get_last_chapter_number ( $args, $instance ){
-    // TODO make global settings impact title display
-    return ( isset($instance['last_chapter_number']) ) ? esc_attr( $instance['last_chapter_number'] ) : "";
 }
 
 function rcpn_get_chapter_padding_character ( $args, $instance ){
@@ -101,16 +95,9 @@ function rcpn_get_chapter_padding_size ( $args, $instance ){
     return ( isset($instance['chapter_padding_size']) ) ? esc_attr( $instance['chapter_padding_size'] ) : '3';
 }
 
-function rcpn_get_chapter_number ( $args, $instance, $chapter_prefix, $chapter_padding_character, $chapter_padding_size ){
-    ob_start();
-    the_permalink();    
-    $permalink = ob_get_clean();
-    $pattern = '((.*' . $chapter_prefix . ')([0-9]+)(/))';
-    preg_match($pattern, $permalink, $matches);
-    $location = ltrim($matches[2], $chapter_padding_character);
-    return $location;
+function rcpn_get_last_chapter_number( $args, $instance ){
+    return ( isset($instance['last_chapter_number']) ) ? esc_attr( $instance['last_chapter_number'] ) : '3';    
 }
-
 
 // Creating widget front-end
 // This is where the action happens
@@ -123,30 +110,43 @@ public function widget( $args, $instance ) {
     $index_word = $this->rcpn_get_index_word( $args, $instance );
     $next_word = $this->rcpn_get_next_word( $args, $instance );
     $text_style = $this->rcpn_get_text_style( $args, $instance );
-    $chapter_prefix = $this->rcpn_get_chapter_prefix( $args, $instance );
-    $chapter_padding_character = $this->rcpn_get_chapter_padding_character( $args, $instance );
+    
     $hr_above = $this->rcpn_get_hr_above( $args, $instance );
     $hr_below = $this->rcpn_get_hr_below( $args, $instance );
-    $last_chapter_number = $this->rcpn_get_last_chapter_number( $args, $instance );
-    
-    
-    $chapter_padding_size = $this->rcpn_get_chapter_padding_size( $args, $instance );
-    $location = $this->rcpn_get_chapter_number( $args, $instance, $chapter_prefix, $chapter_padding_character, $chapter_padding_size );
-        
-    $nextLoc = intval($location) + 1;
-    $prevLoc = intval($location) - 1;
-    $nextLoc = str_pad($nextLoc, $chapter_padding_size, $chapter_padding_character, STR_PAD_LEFT);
-    $prevLoc = str_pad($prevLoc, $chapter_padding_size, $chapter_padding_character, STR_PAD_LEFT);
-
+   
+  
     $ancestors = get_post_ancestors($post->ID);
     $parent = $ancestors[0];
     
     $out = "";
     if ( intval($hr_above) == '1' ) { $out = $out . "<hr />"; }
+    
+    $endl = "<br />";
+    
+    global $post;
+   // echo "pageid: " . $post->ID . $endl;
+    
+   // get_post_field( $field, $post_id, $context );
+    
+ //   $my_menu_order = get_post_field( 'menu_order', $post->ID, true );
+   // $my_meta_data = get_post_field( 'meta_input', $post->ID, true );
+    $meta_data = get_post_meta ( $post->ID );
+    
+    $next_link = $meta_data['next_link'][0];
+    $prev_link = $meta_data['prev_link'][0];
+    
+    $my_meta_data2 = $post->META_INPUT;
+    
+//     if ( ! is_wp_error($my_menu_order) ) {
+//         echo "menu order :" .$my_menu_order . $endl;
+//         echo "prev_link :" .$prev_link . $endl;
+//         echo "next_link :" .$next_link . $endl;
+//     }
+    
     $out = $out . "<p style=\"" . $text_style . "\">";
     
-    if (intval($location) > 1){
-        $out = $out . "<a href=\"" . get_permalink($parent) . $chapter_prefix . $prevLoc . "/\">" . $prev_word . "</a>";
+     if ( $prev_link != 'NONE' ) {
+        $out = $out . "<a class=\"nav-previous\" name=\"nav-previous\" href=\"" . get_permalink($parent) . $prev_link . "/\">" . $prev_word . "</a>";
     } else {
         $out = $out . "<del>". $prev_word . "</del>";
     }
@@ -155,8 +155,8 @@ public function widget( $args, $instance ) {
     $out = $out . "<a href=\"" . get_permalink($parent) . "\">" . $index_word . "</a>";
     $out = $out . $separator;
     
-    if (intval($location) < intval ($last_chapter_number) ) {
-        $out = $out . "<a href=\"" . get_permalink($parent)  . $chapter_prefix . $nextLoc . "/\">" . $next_word . "</a>";
+    if ( $next_link != 'NONE' ) {
+        $out = $out . "<a class=\"nav-next\" name=\"nav-next\" href=\"" . get_permalink($parent)  . $next_link . "/\">" . $next_word . "</a>";
     } else {
         $out = $out . "<del>". $next_word . "</del>";
     }
@@ -164,90 +164,70 @@ public function widget( $args, $instance ) {
     if ( intval($hr_below) == 1 ) { $out = $out . "<hr />"; }  
       
     echo __( $out , 'rcpn_page_nav_widget_domain' );
-   
-//  echo $args['after_widget'];
+    
+    wp_enqueue_script( 'rc_auto_page_nav_arrows', plugins_url() .'/'. 'righteous-auto-page-navigation-widget' .'/' . 'righteouscoder-pagenav.js' , array(), false, true );
+    // add_action( 'wp_print_styles', 'addFrontendCss' );
 }
 		
 // Widget Backend 
 public function form( $instance ) {
-    if ( empty( $instance[ 'title' ] ) ) {
+    if ( isset( $instance[ 'title' ] ) ) {
         $title = $instance[ 'title' ];
     }
     else {
         $title = __( 'New title', 'rcpn_page_nav_widget_domain' );
     }
     
-    if ( empty( $instance[ 'separator' ] ) ) {
+    if ( isset( $instance[ 'separator' ] ) ) {
         $separator = $instance[ 'separator' ];
     }
     else {
-        $separator = __( '|', 'rcpn_page_nav_widget_domain' );
+        $separator = __( ' | ', 'rcpn_page_nav_widget_domain' );
     }
         
-    if ( empty( $instance[ 'prev_word' ] ) ) {
+    if ( isset( $instance[ 'prev_word' ] ) ) {
         $prev_word = $instance[ 'prev_word' ];
     }
     else {
         $prev_word = __( 'PREVIOUS', 'rcpn_page_nav_widget_domain' );
     }
     
-    if ( empty( $instance[ 'index_word' ] ) ) {
+    if ( isset( $instance[ 'index_word' ] ) ) {
         $index_word = $instance[ 'index_word' ];
     }
     else {
         $index_word = __( 'INDEX', 'rcpn_page_nav_widget_domain' );
     }
     
-    if ( empty( $instance[ 'next_word' ] ) ) {
+    if ( isset( $instance[ 'next_word' ] ) ) {
         $next_word = $instance[ 'next_word' ];
     }
     else {
         $next_word = __( 'NEXT', 'rcpn_page_nav_widget_domain' );
     }
     
-    if ( empty( $instance[ 'chapter_prefix' ] ) ) {
-        $chapter_prefix = $instance[ 'chapter_prefix' ];
-    }
-    else {
-        $chapter_prefix = __( 'ch-', 'rcpn_page_nav_widget_domain' );
-    }
-    
-    if ( empty( $instance[ 'text_style' ] ) ) {
+    if ( isset( $instance[ 'text_style' ] ) ) {
         $text_style = $instance[ 'text_style' ];
     }
     else {
         $text_style = __( 'text-align: center;', 'rcpn_page_nav_widget_domain' );
     }
     
-    if ( isset( $instance[ 'chapter_padding_size' ] ) ) {
-        $chapter_padding_size = $instance[ 'chapter_padding_size' ];
-    }
-    else {
-        $chapter_padding_size = __( '3', 'rcpn_page_nav_widget_domain' );
-    }
-    
-   if ( isset( $instance[ 'chapter_padding_character' ] ) ) {
-        $chapter_padding_character = $instance[ 'chapter_padding_character' ];
-   }
-   else {
-       $chapter_padding_character = __( '0', 'rcpn_page_nav_widget_domain' );
-   }
-    
-    if ( empty( $instance[ 'suppress_title' ] ) ) {
+    if ( isset( $instance[ 'suppress_title' ] ) ) {
         $suppress_title = $instance[ 'suppress_title' ];
     }
     else {
-        $suppress_title = __( '0', 'rcpn_page_nav_widget_domain' );
+        $suppress_title = __( '1', 'rcpn_page_nav_widget_domain' );
     }
     
-    if ( empty( $instance[ 'hr_above' ] ) ) {
+    if ( isset( $instance[ 'hr_above' ] ) ) {
         $hr_above = $instance[ 'hr_above' ];
     }
     else {
         $hr_above = __( '1', 'rcpn_page_nav_widget_domain' );
     }
     
-    if ( empty( $instance[ 'hr_below' ] ) ) {
+    if ( isset( $instance[ 'hr_below' ] ) ) {
         $hr_below = $instance[ 'hr_below' ];
     }
     else {
@@ -273,21 +253,11 @@ public function form( $instance ) {
 <label for="<?php echo $this->get_field_id( 'next_word' ); ?>"><?php _e( 'String for Next Link:' ); ?></label> 
 <input class="widefat" id="<?php echo $this->get_field_id( 'next_word' ); ?>" name="<?php echo $this->get_field_name( 'next_word' ); ?>" type="text" value="<?php echo esc_attr( $next_word ); ?>" />
 
-<label for="<?php echo $this->get_field_id( 'chapter_prefix' ); ?>"><?php _e( 'Chapter Prefix:' ); ?></label> 
-<input class="widefat" id="<?php echo $this->get_field_id( 'chapter_prefix' ); ?>" name="<?php echo $this->get_field_name( 'chapter_prefix' ); ?>" type="text" value="<?php echo esc_attr( $chapter_prefix ); ?>" />
-
 <label for="<?php echo $this->get_field_id( 'text_style' ); ?>"><?php _e( 'Text Style:' ); ?></label> 
 <input class="widefat" id="<?php echo $this->get_field_id( 'text_style' ); ?>" name="<?php echo $this->get_field_name( 'text_style' ); ?>" type="text" value="<?php echo esc_attr( $text_style ); ?>" />
 
-<label for="<?php echo $this->get_field_id( 'chapter_padding_size' ); ?>"><?php _e( 'Total Size after Padding:' ); ?></label> 
-<input class="widefat" maxlength="1" id="<?php echo $this->get_field_id( 'chapter_padding_size' ); ?>" name="<?php echo $this->get_field_name( 'chapter_padding_size' ); ?>" type="text" value="<?php echo esc_attr( $chapter_padding_size ); ?>" />
-
-<label for="<?php echo $this->get_field_id( 'chapter_padding_character' ); ?>"><?php _e( 'Padding Character(s):' ); ?></label> 
-<input class="widefat" id="<?php echo $this->get_field_id( 'chapter_padding_character' ); ?>" name="<?php echo $this->get_field_name( 'chapter_padding_character' ); ?>" type="text" value="<?php echo $chapter_padding_character ; ?>" />
-
 </p>
 
-<br />
 <label for="<?php echo $this->get_field_id('suppress_title'); ?>" title="<?php _e('Do not output widget title in the front-end.');?>">
 <input idx="<?php echo $this->get_field_id('suppress_title'); ?>" name="<?php echo $this->get_field_name('suppress_title'); ?>" type="checkbox" value="1" <?php checked($instance['suppress_title'],'1', true);?> /> <?php _e('Suppress Title Output');?>
 </label>
@@ -305,6 +275,7 @@ public function form( $instance ) {
 <label for="<?php echo $this->get_field_id('hr_below'); ?>" title="<?php _e('Put a &#60;hr /&#62; line below the links.');?>">
 <input idx="<?php echo $this->get_field_id('hr_below'); ?>" name="<?php echo $this->get_field_name('hr_below'); ?>" type="checkbox" value="1" <?php checked($instance['hr_below'],'1', true);?> /> <?php _e('&#60;hr /&#62; line below.');?>
 </label>
+<p>
 
 <?php 
 }
@@ -317,14 +288,17 @@ public function update( $new_instance, $old_instance ) {
     $instance['next_word'] = ( ! empty( $new_instance['next_word'] ) ) ? strip_tags( $new_instance['next_word'] ) : '';
     $instance['index_word'] = ( ! empty( $new_instance['index_word'] ) ) ? strip_tags( $new_instance['index_word'] ) : '';
     $instance['prev_word'] = ( ! empty( $new_instance['prev_word'] ) ) ? strip_tags( $new_instance['prev_word'] ) : '';
-    $instance['chapter_prefix'] = ( ! empty( $new_instance['chapter_prefix'] ) ) ? strip_tags( $new_instance['chapter_prefix'] ) : '';
+       
     $instance['text_style'] = ( ! empty( $new_instance['text_style'] ) ) ? strip_tags( $new_instance['text_style'] ) : '';
     $instance['chapter_padding_size'] = ( ! empty( $new_instance['chapter_padding_size'] ) ) ? strip_tags( $new_instance['chapter_padding_size'] ) : '';
     $instance['chapter_padding_character'] = $new_instance['chapter_padding_character'] ;
         
     $instance['suppress_title'] = ( ! empty( $new_instance['suppress_title'] ) ) ? strip_tags( $new_instance['suppress_title'] ) : '';
+   // $instance['last_chapter_number'] = ( ! empty( $new_instance['last_chapter_number'] ) ) ? strip_tags( $new_instance['last_chapter_number'] ) : '';
     $instance['hr_above'] =  $new_instance['hr_above'] ;
     $instance['hr_below'] =  $new_instance['hr_below'] ;
+    
+    
     
     return $instance;
 }
