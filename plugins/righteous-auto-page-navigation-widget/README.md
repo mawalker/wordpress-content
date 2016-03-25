@@ -23,7 +23,7 @@ To install this plugin use the "install" feature from the WordPress site, or dow
 
 == Changelog ==
 
-= 1.0.0.0-RC-1 =
+= 1.0.0.0 =
 * Page Nav now works off of meta-data for each page.
 * Chapter based and Volume based pages both use meta-data to store 'previous' and 'next' pages
 * Left-Arrow and Right-Arrow allow for Previous/Next page naviagation. 

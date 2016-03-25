@@ -19,5 +19,5 @@ wp-content/plugins/hello.php
 *
 
 !plugins/righteous-auto-page-navigation-widget/
-!/plugins/righteous-bulk-page-creator-plugin/
-!/themes/twentysixteen-extension/
+!plugins/righteous-bulk-page-creator-plugin/
+!themes/twentysixteen-extension/

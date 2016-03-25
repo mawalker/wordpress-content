@@ -26,7 +26,7 @@ To install this plugin please use the "install" feature from the WordPress site,
 
 == Changelog ==
 
-= 1.0.0.0-RC-1 =
+= 1.0.0.0 =
 * Create pages in 'chapter' or 'volume/chapter' mode.
 * Can create non-numerical named pages, such as: 'index', 'Table of Contents', etc.
 * Can adjust 'previous' and 'next' page order before final page creation
