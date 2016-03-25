@@ -15,8 +15,6 @@ function __construct() {
 parent::__construct(
     // Base ID of your widget
     'rcpn_page_nav_widget', 
-
-    //This address for this post is: <?php the_permalink(); 
     
     // Widget name will appear in UI
     __('RC Page-Navigation Widget', 'rcpn_page_nav_widget_domain'), 
@@ -28,8 +26,6 @@ parent::__construct(
 
 function rcpn_get_title( $args, $instance ){
     $title = ( isset($instance['title']) ) ? esc_attr( $instance['title'] ) : false;
-    //$title = apply_filters( 'widget_title', $instance['title'] );
-    //echo $title;
     if ( empty( $title ) ){ 
         $title = $args['default_title'];
     } 
@@ -37,16 +33,11 @@ function rcpn_get_title( $args, $instance ){
 }
 
 function rcpn_print_title ( $args, $instance ){
-  //  $title = $this->rcpn_get_title( $args, $instance );
-    
     $supress_title = ( isset($instance['suppress_title']) ) ? $instance['suppress_title'] : false;
     $title = ( isset($instance['title']) ) ? esc_attr( $instance['title'] ) : false;
     
-  // echo "title?: " . $title . " " . $instance['title'];
-    
     // TODO make global settings impact title display
     ( $title && ( ! $supress_title ) ) ? print($args['before_title'] . $title . $args['after_title']) : null;
-    
 }
 
 function rcpn_get_hr_above ( $args, $instance ){
@@ -85,9 +76,7 @@ function rcpn_get_text_style ( $args, $instance ){
 
 function rcpn_get_chapter_padding_character ( $args, $instance ){
     // TODO make global settings impact title display
-    //return '0';
     return $instance['chapter_padding_character'];
-   // return ( isset($instance['chapter_padding_character']) ) ? $instance['chapter_padding_character']  : '0';
 }
 
 function rcpn_get_chapter_padding_size ( $args, $instance ){
@@ -114,7 +103,6 @@ public function widget( $args, $instance ) {
     $hr_above = $this->rcpn_get_hr_above( $args, $instance );
     $hr_below = $this->rcpn_get_hr_below( $args, $instance );
    
-  
     $ancestors = get_post_ancestors($post->ID);
     $parent = $ancestors[0];
     
@@ -124,24 +112,12 @@ public function widget( $args, $instance ) {
     $endl = "<br />";
     
     global $post;
-   // echo "pageid: " . $post->ID . $endl;
-    
-   // get_post_field( $field, $post_id, $context );
-    
- //   $my_menu_order = get_post_field( 'menu_order', $post->ID, true );
-   // $my_meta_data = get_post_field( 'meta_input', $post->ID, true );
     $meta_data = get_post_meta ( $post->ID );
     
     $next_link = $meta_data['next_link'][0];
     $prev_link = $meta_data['prev_link'][0];
     
     $my_meta_data2 = $post->META_INPUT;
-    
-//     if ( ! is_wp_error($my_menu_order) ) {
-//         echo "menu order :" .$my_menu_order . $endl;
-//         echo "prev_link :" .$prev_link . $endl;
-//         echo "next_link :" .$next_link . $endl;
-//     }
     
     $out = $out . "<p style=\"" . $text_style . "\">";
     
@@ -166,7 +142,6 @@ public function widget( $args, $instance ) {
     echo __( $out , 'rcpn_page_nav_widget_domain' );
     
     wp_enqueue_script( 'rc_auto_page_nav_arrows', plugins_url() .'/'. 'righteous-auto-page-navigation-widget' .'/' . 'righteouscoder-pagenav.js' , array(), false, true );
-    // add_action( 'wp_print_styles', 'addFrontendCss' );
 }
 		
 // Widget Backend 
@@ -294,12 +269,10 @@ public function update( $new_instance, $old_instance ) {
     $instance['chapter_padding_character'] = $new_instance['chapter_padding_character'] ;
         
     $instance['suppress_title'] = ( ! empty( $new_instance['suppress_title'] ) ) ? strip_tags( $new_instance['suppress_title'] ) : '';
-   // $instance['last_chapter_number'] = ( ! empty( $new_instance['last_chapter_number'] ) ) ? strip_tags( $new_instance['last_chapter_number'] ) : '';
+
     $instance['hr_above'] =  $new_instance['hr_above'] ;
     $instance['hr_below'] =  $new_instance['hr_below'] ;
-    
-    
-    
+
     return $instance;
 }
 

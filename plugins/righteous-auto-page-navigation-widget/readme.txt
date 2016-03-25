@@ -1,10 +1,11 @@
 === Plugin Name ===
 Contributors: MichaelAWalker
-Tags: Solid Code, Michael A. Walker, Bulk Page Creator, batch action, add pages, add posts, Righteous, RighteousCoder, RighteousWritings
+Tags: Solid Code, Michael A. Walker, Auto Page Navigation, widget, customization, time saver, Righteous, RighteousCoder, RighteousWritings
 Requires at least: 3.1
 Tested up to: 4.4.2
+License: GPLv2
 
-Automatically create page navigation links for online stories, e-novels, etc.
+Automatically create page navigation (be it Sequential Chapters or Volume/Chapter pattern) links for online stories, e-novels, etc.
 
 == Description ==
 
@@ -13,13 +14,19 @@ This widget will give you a startup screen in which you can add as many pages in
 
 == Installation ==
 
-To install this plugin please use the "install" feature from the WordPress site.
+To install this plugin use the "install" feature from the WordPress site, or download and extract the zip file into www/wordpress/plugins/
 
 == Changelog ==
+
+= 1.0.0.0-RC-1 =
+* Page Nav now works off of meta-data for each page.
+* Chapter based and Volume based pages both use meta-data to store 'previous' and 'next' pages
+* Left-Arrow and Right-Arrow allow for Previous/Next page naviagation. 
 
 = 0.5.0 =
 * Initial setup
 
 == Screenshots ==
-
-1. PUT SCREENSHOTS HERE
+1. back-end configuration/customization
+2. example of first chapter with no 'previous' link.
+3. example of middle chapter with both 'previous' and 'next' links.
