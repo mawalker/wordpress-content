@@ -39,23 +39,40 @@ To install this plugin please use the "install" feature from the WordPress site.
 
 == Screenshots ==
 
-1. View of Righteous Bulk Page Creator screen
+1. Plugin (admin only) page in 'Chapter' mode, top half of configuration screen.
+2. Plugin (admin only) page in 'Chapter' mode, bottom half of configuration screen.
+3. Plugin (admin only) page in 'Volume/Chapter' mode, top half of configuration screen.
+4. Plugin (admin only) page in 'Volume/Chapter' mode, bottom half of configuration screen.
+5. 'Previous' and 'Next' meta-data for auto-page-nav widget customization before actual page creation.
 
 
-* back-end configuration/customization
+* Plugin (admin only) page in 'Chapter' mode, top half of configuration screen.
 
-![back-end configuration/customization][screenshot-1] 
+![Plugin (admin only) page in 'Chapter' mode, top half of configuration screen.][screenshot-1] 
 
 
-* example of first chapter with no 'previous' link.
+* Plugin (admin only) page in 'Chapter' mode, bottom half of configuration screen.
 
-![example of first chapter with no 'previous' link][screenshot-2]
+![Plugin (admin only) page in 'Chapter' mode, top half of configuration screen][screenshot-2]
 
-* example of middle chapter with both 'previous' and 'next' links.
 
-![example of middle chapter with both 'previous' and 'next' links][screenshot-3]
+* Plugin (admin only) page in 'Volume/Chapter' mode, top half of configuration screen.
 
-[screenshot-1]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-bulk-page-creator-plugin/screenshot-1.png ""
-[screenshot-1]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-bulk-page-creator-plugin/screenshot-1.png ""
-[screenshot-1]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-bulk-page-creator-plugin/screenshot-1.png ""
-[screenshot-1]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-bulk-page-creator-plugin/screenshot-1.png ""
+![Plugin (admin only) page in 'Chapter' mode, bottom half of configuration screen.][screenshot-3]
+
+
+* Plugin (admin only) page in 'Volume/Chapter' mode, bottom half of configuration screen.
+
+![Plugin (admin only) page in 'Volume/Chapter' mode, top half of configuration screen.][screenshot-4]
+
+
+* 'Previous' and 'Next' meta-data for auto-page-nav widget customization before actual page creation.
+
+!['Previous' and 'Next' meta-data for auto-page-nav widget customization before actual page creation.][screenshot-5]
+
+
+[screenshot-1]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-bulk-page-creator-plugin/screenshot-1.png "Plugin (admin only) page in 'Chapter' mode, top half of configuration screen"
+[screenshot-2]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-bulk-page-creator-plugin/screenshot-2.png "Plugin (admin only) page in 'Chapter' mode, bottom half of configuration screen."
+[screenshot-3]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-bulk-page-creator-plugin/screenshot-3.png "Plugin (admin only) page in 'Volume/Chapter' mode, top half of configuration screen."
+[screenshot-4]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-bulk-page-creator-plugin/screenshot-4.png "Plugin (admin only) page in 'Volume/Chapter' mode, bottom half of configuration screen."
+[screenshot-5]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-bulk-page-creator-plugin/screenshot-5.png "'Previous' and 'Next' meta-data for auto-page-nav widget customization before actual page creation."
