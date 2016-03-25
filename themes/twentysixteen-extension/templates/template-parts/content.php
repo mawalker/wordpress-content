@@ -13,18 +13,16 @@
 		<?php if ( is_sticky() && is_home() && ! is_paged() ) : ?>
 			<span class="sticky-post"><?php _e( 'Featured', 'twentysixteen' ); ?></span>
 		<?php endif; ?>
-		
+
 		<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 	</header><!-- .entry-header -->
 
 	<?php twentysixteen_excerpt(); ?>
 
 	<?php twentysixteen_post_thumbnail(); ?>
-	
-	
-                       
-	<div class="entry-content"> 
-	
+
+	<div class="entry-content">
+
 		<?php if(is_active_sidebar('sidebar-top-2')) : ?>
                 <div id="sidebar">
                 <ul>
@@ -32,7 +30,7 @@
                 </ul>
                 </div>
                 <?php endif; ?>
-	
+
 		<?php
 			/* translators: %s: Name of current post */
 			the_content( sprintf(
@@ -49,7 +47,7 @@
 				'separator'   => '<span class="screen-reader-text">, </span>',
 			) );
 		?>
-		
+
 		<?php if(is_active_sidebar('sidebar-2')) : ?>
                 <div id="sidebar">
                 <ul>
@@ -57,7 +55,7 @@
                 </ul>
                 </div>
                 <?php endif; ?>
-		
+
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
