@@ -47,5 +47,5 @@ To install this plugin use the "install" feature from the WordPress site, or dow
 ![example of middle chapter with both 'previous' and 'next' links][screenshot-3]
 
 [screenshot-1]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-auto-page-navigation-widget/screenshot-1.png "back-end configuration/customization"
-[screenshot-2]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-auto-page-navigation-widget/screenshot-1.png "example of first chapter with no 'previous' link"
-[screenshot-3]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-auto-page-navigation-widget/screenshot-1.png "example of middle chapter with both 'previous' and 'next' links"
+[screenshot-2]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-auto-page-navigation-widget/screenshot-2.png "example of first chapter with no 'previous' link"
+[screenshot-3]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-auto-page-navigation-widget/screenshot-3.png "example of middle chapter with both 'previous' and 'next' links"
