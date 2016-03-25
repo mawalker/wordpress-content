@@ -1,8 +1,13 @@
 === Plugin Name ===
-Contributors: MichaelAWalker
+
+Contributors: Michael A. Walker (RighteousCoder)
+
 Tags: Solid Code, Michael A. Walker, Auto Page Navigation, widget, customization, time saver, Righteous, RighteousCoder, RighteousWritings
+
 Requires at least: 3.1
+
 Tested up to: 4.4.2
+
 License: GPLv2
 
 Automatically create page navigation (be it Sequential Chapters or Volume/Chapter pattern) links for online stories, e-novels, etc.
@@ -27,12 +32,18 @@ To install this plugin use the "install" feature from the WordPress site, or dow
 * Initial setup
 
 == Screenshots ==
-1. back-end configuration/customization
-2. example of first chapter with no 'previous' link.
-3. example of middle chapter with both 'previous' and 'next' links.
 
-![back-end configuration/customization][screenshot-1]
+* back-end configuration/customization
+
+![back-end configuration/customization][screenshot-1] 
+
+
+* example of first chapter with no 'previous' link.
+
 ![example of first chapter with no 'previous' link][screenshot-2]
+
+* example of middle chapter with both 'previous' and 'next' links.
+
 ![example of middle chapter with both 'previous' and 'next' links][screenshot-3]
 
 [screenshot-1]: https://github.com/mawalker/wordpress-content/blob/master/plugins/righteous-auto-page-navigation-widget/screenshot-1.png "back-end configuration/customization"
