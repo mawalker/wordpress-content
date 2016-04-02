@@ -54,7 +54,6 @@ class righteous_bulk_page_creator {
     public function __construct()
         
     {
-        require('libs/page-rendering.php');
         add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
         add_action( 'admin_init', array( $this, 'page_init' ) );
         
